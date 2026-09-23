@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alessio | Researcher in Data Science</title>
+<meta name="description" content="Research on corporate ownership, investor voting and network data. Papers and open-source projects.">
+<link rel="icon" href="img/logos/icon.jpg" type="image/jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --ink: #1E1B4B;
+        --paper: #F6F3FF;
+        --card: #fff;
+        --muted: #5B5787;
+        --violet: #6D4AFF;
+        --coral: #FF5D73;
+        --teal: #00B8A0;
+        --amber: #FFB020;
+        --blue: #3B82F6;
+        --cyan: #00A8E8;
+        --pink: #E6499A;
+        --indigo: #5B5FEF;
+        --display: 'Bricolage Grotesque',system-ui,sans-serif;
+        --body: 'Instrument Sans',system-ui,sans-serif;
+    }
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font:400 1.05rem/1.65 var(--body);color:var(--ink);background:var(--paper)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:6px}
+#bar{position:fixed;top:0;left:0;height:4px;width:0;z-index:20;background:linear-gradient(90deg,var(--violet),var(--coral),var(--amber),var(--teal))}
+nav{position:fixed;top:0;right:0;z-index:10;display:flex;gap:.25rem;padding:.9rem 1.2rem}
+nav a{color:#fff;text-decoration:none;font-weight:600;font-size:.95rem;padding:.35rem .8rem;border-radius:99px;mix-blend-mode:normal;background:rgba(30,27,75,.35);backdrop-filter:blur(8px);transition:background .25s,transform .25s}
+nav a:hover{background:var(--coral);transform:translateY(-2px)}
+/* hero */
+header{position:relative;min-height:100svh;display:grid;place-items:center;background:var(--ink);color:#fff;overflow:hidden;padding:6rem 1.5rem 4rem}
+header::before{content:"";position:absolute;inset:-30%;background:radial-gradient(circle at 20% 30%,rgba(109,74,255,.55),transparent 40%),radial-gradient(circle at 80% 70%,rgba(255,93,115,.45),transparent 42%),radial-gradient(circle at 60% 15%,rgba(0,184,160,.35),transparent 35%);animation:drift 18s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate(4%,-3%) rotate(8deg) scale(1.08)}}
+#net{position:absolute;inset:0;width:100%;height:100%}
+.hero{position:relative;max-width:900px;text-align:center;pointer-events:none}
+.hero a,.hero button{pointer-events:auto}
+.hero h1{font:800 clamp(3rem,10vw,7rem)/.95 var(--display);letter-spacing:-.03em;margin-bottom:1.2rem}
+.hero h1 span{display:inline-block;animation:pop .8s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes pop{from{opacity:0;transform:translateY(40px) rotate(6deg) scale(.6)}}
+.role{font:500 clamp(1.1rem,2.6vw,1.6rem) var(--display);min-height:2.2em}
+.role b{display:inline-block;color:var(--amber);animation:swap .5s ease both}
+@keyframes swap{from{opacity:0;transform:translateY(60%)}}
+.lead{max-width:56ch;margin:1rem auto 2rem;color:#D9D4FF}
+.cta{display:inline-block;padding:.8rem 1.6rem;border-radius:99px;font-weight:600;text-decoration:none;background:var(--coral);color:#fff;margin:.3rem;transition:transform .25s,box-shadow .25s}
+.cta.alt{background:transparent;box-shadow:inset 0 0 0 2px #fff}
+.cta:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 10px 30px rgba(255,93,115,.5)}
+.cta.alt:hover{box-shadow:inset 0 0 0 2px var(--amber),0 10px 30px rgba(255,176,32,.35)}
+/* sections */
+section{max-width:1100px;margin:auto;padding:6rem 1.5rem 1rem}
+h2{font:800 clamp(2rem,5vw,3.2rem)/1.05 var(--display);letter-spacing:-.02em;margin-bottom:.6rem}
+.sub{color:var(--muted);max-width:60ch;margin-bottom:2rem}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem;margin-top:-2.5rem;position:relative;z-index:2;max-width:1100px;margin-inline:auto;padding-inline:1.5rem}
+.stat{background:var(--card);border-radius:22px 22px 22px 6px;padding:1.2rem 1.4rem;box-shadow:0 14px 40px rgba(109,74,255,.18);border-top:6px solid var(--c)}
+.stat strong{display:block;font:800 2.6rem/1 var(--display);color:var(--c)}
+.stat span{color:var(--muted);font-size:.95rem}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.6rem}
+.chip{border:0;font:600 .95rem var(--body);cursor:pointer;padding:.45rem 1rem;border-radius:99px;background:#fff;color:var(--ink);box-shadow:inset 0 0 0 2px #DAD3FF;transition:.25s}
+.chip:hover{transform:translateY(-2px) rotate(-2deg)}
+.chip[aria-pressed=true]{background:var(--ink);color:#fff;box-shadow:none}
+.list{display:grid;gap:1rem}
+.paper{background:var(--card);border-radius:18px;padding:1.3rem 1.5rem 1.3rem 1.8rem;position:relative;overflow:hidden;box-shadow:0 6px 22px rgba(30,27,75,.08);transition:transform .35s,box-shadow .35s,opacity .35s}
+.paper::before{content:"";position:absolute;left:0;top:0;bottom:0;width:8px;background:var(--c);transition:width .35s}
+.paper:hover{transform:translateX(6px);box-shadow:0 14px 34px rgba(30,27,75,.14)}
+.paper:hover::before{width:14px}
+.paper.hide{display:none}
+.paper h3{font:700 1.25rem/1.25 var(--display);margin-bottom:.3rem}
+.meta{color:var(--muted);font-size:.92rem}
+.tag{display:inline-block;font-size:.8rem;font-weight:600;padding:.1rem .6rem;border-radius:99px;color:#fff;background:var(--c);margin-right:.3rem}
+.more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s ease}
+.more>div{overflow:hidden}
+.open .more{grid-template-rows:1fr}
+.more p{padding-top:.8rem}
+.tog{background:none;border:0;font:600 .95rem var(--body);color:var(--violet);cursor:pointer;padding:.5rem 0 0}
+.tog::after{content:" +";display:inline-block;transition:transform .3s}
+.open .tog::after{content:" +";transform:rotate(45deg)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.4rem;perspective:1000px}
+.repo{background:var(--card);border-radius:26px 26px 26px 8px;padding:1.5rem;box-shadow:0 10px 30px rgba(30,27,75,.1);border-bottom:8px solid var(--c);transition:transform .15s ease-out,box-shadow .3s;transform-style:preserve-3d}
+.repo:hover{box-shadow:0 22px 50px rgba(30,27,75,.2)}
+.repo h3{font:700 1.3rem var(--display);display:flex;align-items:center;gap:.5rem}
+.repo h3::before{content:"";width:14px;height:14px;border-radius:50%;background:var(--c);animation:pulse 2s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px transparent;transform:scale(1.15)}0%{box-shadow:0 0 0 0 var(--c)}}
+.repo p{margin:.6rem 0}
+.repo ol{padding-left:1.2rem;color:var(--muted);font-size:.95rem}
+.stack{display:flex;flex-wrap:wrap;gap:.35rem;margin:.9rem 0}
+.stack span{font-size:.8rem;font-weight:600;padding:.15rem .6rem;border-radius:8px;background:#EFEAFF;color:var(--violet)}
+.repo a.gh{font-weight:600;color:var(--c);text-decoration:none}
+.repo a.gh:hover{text-decoration:underline}
+.contact{margin:6rem auto 0;max-width:none;background:linear-gradient(120deg,var(--violet),var(--coral),var(--amber));background-size:200% 200%;animation:flow 10s ease infinite;color:#fff;text-align:center;padding:5rem 1.5rem}
+@keyframes flow{50%{background-position:100% 50%}}
+.contact .cta{background:#fff;color:var(--ink)}
+footer{text-align:center;padding:1.5rem;color:var(--muted);font-size:.9rem}
+.rv{opacity:0;transform:translateY(28px);transition:opacity .7s,transform .7s}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}html{scroll-behavior:auto}}
+@media (max-width:600px){nav a:nth-child(n+4){display:none}}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<nav aria-label="Main"><a href="#research">Research</a><a href="#papers">Papers</a><a href="#projects">Projects</a><a href="#contact">Contact</a></nav>
+
+<header>
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="hero">
+    <h1 id="name" aria-label="Alessio"></h1>
+    <p class="role">I study <b id="word">machine learning</b></p>
+    <p class="lead">Researcher and data scientist studying how complex systems can be understood through data, models, and networks. I investigate prediction, causal relationships, and the flow of influence across financial, organizational, and biological systems. I publish research and build the Python tools that make these analyses possible.</p>
+    <a class="cta" href="#papers">Read my papers</a>
+    <a class="cta alt" href="#projects">Explore the code</a>
+  </div>
+</header>
+
+<div class="stats" id="stats"></div>
+
+<section id="research">
+  <h2>What I work on</h2>
+  <p class="sub">Three questions drive my research. Hover a card, then follow the papers and code below.</p>
+  <div class="grid" id="areas"></div>
+</section>
+
+<section id="papers">
+  <h2>Selected papers</h2>
+  <p class="sub">Filter by topic, and open any paper to read its abstract.</p>
+  <div class="chips" id="filters" role="group" aria-label="Filter papers by topic"></div>
+  <div class="list" id="papers-list"></div>
+</section>
+
+<section id="projects">
+  <h2>Open-source projects</h2>
+  <p class="sub">Tools I built for my research. Each card explains what the project does and how it works.</p>
+  <div class="grid" id="repos"></div>
+</section>
+
+<section class="contact" id="contact">
+  <h2>Let's collaborate</h2>
+  <p style="max-width:50ch;margin:0 auto 1.6rem">Interested in ownership data, voting records or network visualization? Send me a message.</p>
+  <a class="cta" id="mail" href="mailto:you@example.com">you@example.com</a>
+  <a class="cta alt" id="ghlink" href="https://github.com/your-username">GitHub profile</a>
+</section>
+<footer>© <span id="yr"></span> Alessio. Built with plain HTML, CSS and JavaScript.</footer>
+
+<script>
+/* ============ EDIT YOUR CONTENT HERE ============ */
+    const ME = {
+        name: "Alessio", email: "armonia.aabeltino@gmail.com", github:"https://github.com/Axl31",
+        roles: [
+            "machine learning",
+            "complex systems",
+            "predictive modeling",
+            "large language model",
+            "neural networks",
+            "causal inference",
+            "network science",
+            "graph data",
+            "explainable AI"
+        ] };
+    const AREAS = [
+        {
+            c: "var(--violet)",
+            t: "Can we predict complex systems?",
+            d: "I build data-driven models to forecast outcomes, handle heterogeneity, and improve generalization across complex systems."
+        },
+        {
+            c: "var(--coral)",
+            t: "What actually causes change?",
+            d: "I use causal inference and machine learning to distinguish predictive patterns from genuine causal relationships."
+        },
+        {
+            c: "var(--teal)",
+            t: "How does influence propagate?",
+            d: "I model complex systems as networks to identify key actors, interactions, and pathways of influence."
+        }
+    ];
+const PAPERS = [
+    {
+        t: "Power and Control in Complex Networks: A Taxonomy and Critical Review", v: "Complexity", y: 2026, cited: 0, tag: "Netcontrol", c: "var(--coral)", url:"https://doi.org/10.1155/cplx/6901600",
+        a:"This paper reviews the main network analysis methodologies used to measure structural power, understood as the ability of actors to shape outcomes through their position and influence within a network. These approaches have been widely applied to the study of corporate control, global value chains, financial systems, and technology supply networks. Despite substantial methodological advances, the literature remains fragmented, with different measures often capturing distinct dimensions of structural power without a common conceptual framework. To address this gap, the paper develops a taxonomy that classifies existing methodologies by the dominant mechanism they use to conceptualize and measure power. Six methodological families are identified: centrality‐based approaches, game‐theoretic models, concentration measures, flow‐based methods, optimization frameworks, and hybrid approaches. By clarifying the assumptions, analytical focus, and limitations of each family, the taxonomy provides a coherent framework for comparing alternative measures of structural power and understanding the dimensions of influence they capture. The paper concludes by outlining future research directions to refine hybrid models linking decision‐making and network flows."},
+    {
+        t: "Speculation and retail price transmission in the frozen concentrated orange juice market: a causal machine learning analysis", v: "Future Business Journal", y: 2026, cited: 0, tag: "Price transmission", c: "var(--violet)", url:"https://doi.org/10.1186/s43093-026-00777-x",
+            a: "While the futures–spot price relationship is well established in commodity markets, the transmission of price signals to the retail level remains an \" incomplete bridge,\” particularly under varying speculative regimes.Traditional empirical approaches often fail to capture the nonlinear and heterogeneous dynamics of this process, typically providing a single Average Treatment Effect(ATE) that masks the distortions caused by market frictions.This study addresses this gap by developing a novel causal machine learning(CML) framework.Leveraging double machine learning(DML), we isolate the causal link between futures and retail prices by \" partialing out \” high-dimensional confounding variables, effectively distinguishing the informational signal from the market \" noise \” identified in recent literature.We illustrate this framework using the US frozen concentrated orange juice(FCOJ) market as a functional laboratory for concentrated and volatile ” soft ” commodities.Our results reveal a non- monotonic relationship: while moderate speculation enhances price discovery(CATE ≈ 1), both low and high speculative intensity impair signal propagation.Crucially, we find that excessive speculation leads to ” informational decoupling,” where increased statistical uncertainty in the CATE reflects a coordination failure in firm - level pricing and procurement decisions.These findings challenge the assumption that speculation consistently enhances market efficiency and could provide a robust, scalable, data - driven analytical tool for future supply - chain research and policy discussions on commodity market regulation."},
+    {
+        t: "Transforming personalized weight forecasting: From the Personalized Metabolic Avatar to the Generalized Metabolic Avatar", v: "Computers in Biology and Medicine", y: 2025, cited: 2, tag: "Metabolism", c: "var(--amber)", url:"https://doi.org/10.1016/j.compbiomed.2025.109879",
+            a: "Background and objective:\nDeveloping predictive computational models of metabolism using mechanistic approaches is complex and resource intensive.Data - driven models offer a reliable, fast, and continuously updating solution for predictive analytics.Previously, we developed the Personalized Metabolic Avatar(PMA), a gated recurrent unit deep learning model, to forecast personalized weight variations based on macronutrient composition and daily energy balance.This model allows for diet plan simulations and tailored goal setting, empowering individuals with the knowledge to achieve long- lasting healthy lifestyle results.However, the PMA requires adaptation through the collection of individual - specific data.Our objective is to address this limitation by creating a more generalized model that maintains predictive accuracy without the need for individual data measurement.\nMethods:\nWe propose the Generalized Metabolic Avatar(GMA) to generalize metabolic predictions for a broader user base by incorporating parameters such as age and gender, thus eliminating the need for individual data measurement and enabling application to individuals who have not been previously analyzed.The GMA's predictive accuracy was assessed in both ideal conditions and real-world scenarios. Comparative evaluations against the PMA were performed to validate the GMA's viability and efficiency.\nResults:\nThe GMA demonstrated promising predictive accuracy, with an average RMSE of 0.54 ± 0.03 in ideal conditions and 0.92 ± 0.76 in real - world scenarios.Comparative evaluations showed that the GMA maintains comparable accuracy to the PMA(PMA RMSE: 0.42 ± 0.04; GMA RMSE: 0.44 ± 0.17), while significantly reducing computational time(PMA: 12.0 ± 1.22 s; GMA: 0.15 ± 0.11 s).\nConclusions\nThe GMA offers significant advantages over the PMA by employing a single, scalable model that captures common weight fluctuations through age and gender distinctions.It reduces overfitting and enhances generalizability, achieving comparable accuracy to complex deep learning models.The GMA significantly improves computational efficiency by eliminating the need for individual retraining and maintains robust predictive performance even with limited user - specific data."},
+    {
+        t: "Quantum Metabolic Avatar: A digital replica of metabolism enhanced by quantum algorithms", v: "Expert Systems with Applications", y: 2025, cited: 1, tag: "Metabolism", c: "var(--amber)", url: "https://doi.org/10.1016/j.eswa.2025.129045",
+            a: "The integration of quantum computing (QC) into predictive modeling represents a transformative advancement in machine learning, providing substantial improvements over traditional methods. This study compares classical Echo State Networks (ESN) with quantum Echo State Networks (qESN) for time-series forecasting, emphasizing the concept of a metabolic avatar—a dynamic data-driven model of individual metabolic processes. Utilizing time-series data from six distinct users, we assessed both models’ precision and adaptability through Root Mean Squared Error (RMSE). Our results demonstrate consistent superiority of qESN over classical ESN, highlighted by a 30% RMSE reduction during cross- validation(CV).Notably, qESN showed remarkable stability and accuracy even with limited training data, underscoring its effectiveness in data - sparse scenarios.Furthermore, we examined model performance in datasets containing outliers.QESN significantly outperformed classical ESN, achieving approximately 76 % lower RMSE in CV and about 55 % lower RMSE in walk - forward validation(WFV).This demonstrates qESN’s enhanced robustness and reduced susceptibility to overfitting. Crucially, our findings highlight the Quantum Metabolic Avatar’s(QMA) profound potential for personalized predictive analytics, essential for applications in personalized healthcare and customized wellness programs.The study strongly supports integrating quantum algorithms into predictive modeling, marking a pivotal advancement towards highly personalized and dynamic metabolic avatars."},
+    {
+        t: "Unraveling the Gut Microbiota: Implications for Precision Nutrition and Personalized Medicine", v: "Nutrients", y: 2024, cited: 125, tag: "Microbiota", c: "var(--teal)", url: "https://doi.org/10.3390/nu16223806",
+        a: "Recent studies have shown a growing interest in the complex relationship between the human gut microbiota, metabolism, and overall health. This review aims to explore the gut microbiota–host association, focusing on its implications for precision nutrition and personalized medicine. The objective is to highlight how gut microbiota modulate metabolic and immune functions, contributing to disease susceptibility and wellbeing. The review synthesizes recent research findings, analyzing key studies on the influence of gut microbiota on lipid and carbohydrate metabolism, intestinal health, neurobehavioral regulation, and endocrine signaling. Data were drawn from both experimental and clinical trials examining microbiota–host interactions relevant to precision nutrition. Our findings highlight the essential role of gut microbiota-derived metabolites in regulating host metabolism, including lipid and glucose pathways. These metabolites have been found to influence immune responses and gut barrier integrity. Additionally, the microbiota impacts broader physiological processes, including neuroendocrine regulation, which could be crucial for dietary interventions. Therefore, understanding the molecular mechanisms of dietary–microbiota–host interactions is pivotal for advancing personalized nutrition strategies. Tailored dietary recommendations based on individual gut microbiota compositions hold promise for improving health outcomes, potentially revolutionizing future healthcare approaches across diverse populations."
+    },
+    {
+        t: "Digital Biohacking Approach to Dietary Interventions: A Comprehensive Strategy for Healthy and Sustainable Weight Loss", v: "Nutrients", y: 2024, cited: 5, tag: "Metabolism", c: "var(--amber)", url: "https://doi.org/10.3390/nu16132021",
+        a: "The rising obesity epidemic requires effective and sustainable weight loss intervention strategies that take into account both of individual preferences and environmental impact.This study aims to develop and evaluate the effectiveness of an innovative digital biohacking approach for dietary modifications in promoting sustainable weight loss and reducing carbon footprint impact.A pilot study was conducted involving four participants who monitored their weight, diet, and activities over the course of a year.Data on food consumption, carbon footprint impact, calorie intake, macronutrient composition, weight, and energy expenditure were collected.A digital replica of the metabolism based on nutritional information, the Personalized Metabolic Avatar(PMA), was used to simulate weight changes, plan, and execute the digital biohacking approach to dietary interventions.The dietary modifications suggested by the digital biohacking approach resulted in an average daily calorie reduction of 236.78 kcal(14.24 %) and a 15.12% reduction in carbon footprint impact(−736.48 gCO2eq) per participant.Digital biohacking simulations using PMA showed significant differences in weight change compared to actual recorded data, indicating effective weight reduction with the digital biohacking diet.Additionally, linear regression analysis on real data revealed a significant correlation between adherence to the suggested diet and weight loss.In conclusion, the digital biohacking recommendations provide a personalized and sustainable approach to weight loss, simultaneously reducing calorie intake and minimizing the carbon footprint impact.This approach shows promise in combating obesity while considering both individual preferences and environmental sustainability."
+    },
+    {
+        t: "Digital applications for diet monitoring, planning, and precision nutrition for citizens and professionals: a state of the art", v: "Nutrition Review", y: 2024, cited: 93, tag: "Nutrition", c: "var(--blue)", url: "https://doi.org/10.1093/nutrit/nuae035",
+        a: "The objective of this review was to critically examine existing digital applications, tailored for use by citizens and professionals, to provide diet monitoring, diet planning, and precision nutrition. We sought to identify the strengths and weaknesses of such digital applications, while exploring their potential contributions to enhancing public health, and discussed potential developmental pathways. Nutrition is a critical aspect of maintaining good health, with an unhealthy diet being one of the primary risk factors for chronic diseases, such as obesity, diabetes, and cardiovascular disease. Tracking and monitoring one’s diet has been shown to help improve health and weight management. However, this task can be complex and time-consuming, often leading to frustration and a lack of adherence to dietary recommendations. Digital applications for diet monitoring, diet generation, and precision nutrition offer the promise of better health outcomes. Data on current nutrition-based digital tools was collected from pertinent literature and software providers. These digital tools have been designed for particular user groups: citizens, nutritionists, and physicians and researchers employing genetics and epigenetics tools. The applications were evaluated in terms of their key functionalities, strengths, and limitations. The analysis primarily concentrated on artificial intelligence algorithms and devices intended to streamline the collection and organization of nutrition data. Furthermore, an exploration was conducted of potential future advancements in this field. Digital applications designed for the use of citizens allow diet self-monitoring, and they can be an effective tool for weight and diabetes management, while digital precision nutrition solutions for professionals can provide scalability, personalized recommendations for patients, and a means of providing ongoing diet support. The limitations in using these digital applications include data accuracy, accessibility, and affordability, and further research and development are required. The integration of artificial intelligence, machine learning, and blockchain technology holds promise for improving the performance, security, and privacy of digital precision nutrition interventions. Multidisciplinarity is crucial for evidence-based and accessible solutions. Digital applications for diet monitoring and precision nutrition have the potential to revolutionize nutrition and health. These tools can make it easier for individuals to control their diets, help nutritionists provide better care, and enable physicians to offer personalized treatment."
+    },
+    {
+        t: "Putting the Personalized Metabolic Avatar into Production: A Comparison between Deep-Learning and Statistical Models for Weight Prediction", v: "Nutrients", y: 2023, cited: 28, tag: "Metabolism", c: "var(--amber)", url: "https://doi.org/10.3390/nu15051199",
+        a: "Nutrition is a cross-cutting sector in medicine, with a huge impact on health, from cardiovascular disease to cancer. Employment of digital medicine in nutrition relies on digital twins: digital replicas of human physiology representing an emergent solution for prevention and treatment of many diseases. In this context, we have already developed a data-driven model of metabolism, called a “Personalized Metabolic Avatar” (PMA), using gated recurrent unit (GRU) neural networks for weight forecasting. However, putting a digital twin into production to make it available for users is a difficult task that as important as model building. Among the principal issues, changes to data sources, models and hyperparameters introduce room for error and overfitting and can lead to abrupt variations in computational time. In this study, we selected the best strategy for deployment in terms of predictive performance and computational time. Several models, such as the Transformer model, recursive neural networks (GRUs and long short-term memory networks) and the statistical SARIMAX model were tested on ten users. PMAs based on GRUs and LSTM showed optimal and stable predictive performances, with the lowest root mean squared errors (0.38 ± 0.16–0.39 ± 0.18) and acceptable computational times of the retraining phase (12.7 ± 1.42 s–13.5 ± 3.60 s) for a production environment. While the Transformer model did not bring a substantial improvement over RNNs in term of predictive performance, it increased the computational time for both forecasting and retraining by 40%. The SARIMAX model showed the worst performance in term of predictive performance, though it had the best computational time. For all the models considered, the extent of the data source was a negligible factor, and a threshold was established for the number of time points needed for a successful prediction."
+    },
+    {
+        t: "Personalized Metabolic Avatar: A Data Driven Model of Metabolism for Weight Variation Forecasting and Diet Plan Evaluation", v: "Nutrients", y: 2022, cited: 24, tag: "Metabolism", c: "var(--amber)", url: "https://doi.org/10.3390/nu14173520",
+        a: "Development of predictive computational models of metabolism through mechanistic models is complex and resource demanding, and their personalization remains challenging. Data-driven models of human metabolism would constitute a reliable, fast, and continuously updating model for predictive analytics. Wearable devices, such as smart bands and impedance balances, allow the real time and remote monitoring of physiological parameters, providing for a flux of data carrying information on user metabolism. Here, we developed a data-driven model of end-user metabolism, the Personalized Metabolic Avatar (PMA), to estimate its personalized reactions to diets. PMA consists of a gated recurrent unit (GRU) deep learning model trained to forecast personalized weight variations according to macronutrient composition and daily energy balance. The model can perform simulations and evaluation of diet plans, allowing the definition of tailored goals for achieving ideal weight. This approach can provide the correct clues to empower citizens with scientific knowledge, augmenting their self-awareness with the aim to achieve long-lasting results in pursuing a healthy lifestyle."
+    },
+    {
+        t: "Personalized Self-Monitoring of Energy Balance through Integration in a Web-Application of Dietary, Anthropometric, and Physical Activity Data", v: "Journal of Personalized Medicine (JPM)", y: 2022, cited: 21, tag: "Metabolism", c: "var(--amber)", url: "https://doi.org/10.3390/jpm12040568",
+        a: "Self-monitoring of weight, diet and physical activity is a valuable component of behavioral weight loss treatment. The validation and user-friendliness of this approach is not optimal since users are selected from homogeneous pools and rely on different applications, increasing the burden and achieving partial, generic and/or unrelated information about their metabolic state. Moreover, studies establishing type, time, duration, and adherence criteria for self-monitoring are lacking. In this study, we developed a digital web-based application (ArmOnIA), which integrates dietary, anthropometric, and physical activity data and provides a personalized estimation of energy balance. Moreover, we determined type, time, duration, and adherence criteria for self-monitoring to achieve significant weight loss in a highly heterogeneous group. A single-arm, uncontrolled prospective study on self-monitored voluntary adults for 7 months was performed. Hierarchical clustering of adherence parameters yielded three behavioral approaches: high (HA), low (LA), and medium (MA) adherence. Average BMI decrease is statistically significant between LA and HA. Moreover, we defined thresholds for the minimum frequencies and duration of dietary and weight self-monitoring. This approach can provide the correct clues to empower citizens with scientific knowledge, augmenting their self-awareness with the aim of achieving long-lasting results when pursuing a healthy lifestyle."
+    },
+    ];
+const REPOS = [
+  {
+    n: "Dimensionamento_link",
+    c: "var(--violet)",
+    d: "MATLAB project containing functions for finding the correct combinations of links and functions for animating the trajectory.",
+    s: ["MATLAB"],
+    st: [
+      "Find the correct link combinations",
+      "Perform the link dimensioning",
+      "Compute the trajectory",
+      "Animate the trajectory"
+    ]
+  },
+  {
+    n: "time-series-forecasting",
+    c: "var(--coral)",
+    d: "This repository presents state-of-the-art models for time-series forecasting, including LSTM, GRU, and Transformer-based neural networks.",
+    s: ["Python", "LSTM", "GRU", "Transformer"],
+    st: [
+      "Prepare sequential data",
+      "Train forecasting models",
+      "Predict future time series",
+      "Evaluate model performance"
+    ]
+  },
+  {
+    n: "ChatBotRAG",
+    c: "var(--teal)",
+    d: "A chatbot powered by retrieval-augmented generation (RAG), allowing users to upload PDFs as an external knowledge base through a user-friendly interface.",
+    s: ["Python", "RAG", "LLM", "PDF"],
+    st: [
+      "Upload PDF documents",
+      "Build the external knowledge base",
+      "Retrieve relevant information",
+      "Generate answers with RAG"
+    ]
+  },
+  {
+    n: "temporal-regression-framework",
+    c: "var(--amber)",
+    d: "A modular machine learning framework for building, training, and evaluating regression models on multivariate time-series data.",
+    s: ["Python", "Machine Learning", "Time Series"],
+    st: [
+      "Preprocess multivariate data",
+      "Generate sliding windows",
+      "Train regression models",
+      "Evaluate model performance"
+    ]
+  },
+  {
+    n: "HedgerMarket-FCOJ",
+    c: "var(--blue)",
+    d: "An agent-based simulation of the Frozen Concentrated Orange Juice market, focusing on hedgers and investigating the Efficient Market Hypothesis without speculators.",
+    s: ["NetLogo", "Agent-Based Simulation", "Finance"],
+    st: [
+      "Model the FCOJ market",
+      "Simulate hedging agents",
+      "Analyze market dynamics",
+      "Study the Efficient Market Hypothesis"
+    ]
+  }
+];
+/* ================================================= */
+const $=s=>document.querySelector(s), reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+$('#yr').textContent=new Date().getFullYear(); $('#mail').href='mailto:'+ME.email; $('#mail').textContent=ME.email; $('#ghlink').href=ME.github;
+$('#name').innerHTML=[...ME.name].map((ch,i)=>`<span style="animation-delay:${i*70}ms;color:${['#fff','#FFB020','#FF5D73','#7CE8D8'][i%4]}">${ch}</span>`).join('');
+
+/* rotating research topics */
+let wi=0; setInterval(()=>{const w=$('#word'); wi=(wi+1)%ME.roles.length; const n=w.cloneNode(); n.textContent=ME.roles[wi]; w.replaceWith(n);},2400);
+
+/* stats with counters */
+const tags=[...new Set(PAPERS.map(p=>p.tag))];
+$('#stats').innerHTML=[[PAPERS.length,'papers','--violet'],[REPOS.length,'GitHub projects','--coral'],[AREAS.length,'research questions','--teal'],[tags.length,'topics covered','--amber']]
+ .map(([n,l,c])=>`<div class="stat rv" style="--c:var(${c})"><strong data-n="${n}">0</strong><span>${l}</span></div>`).join('');
+
+/* research areas */
+$('#areas').innerHTML=AREAS.map(a=>`<div class="repo rv" style="--c:${a.c}"><h3>${a.t}</h3><p>${a.d}</p></div>`).join('');
+
+/* papers */
+$('#filters').innerHTML=['All',...tags].map((t,i)=>`<button class="chip" aria-pressed="${!i}" data-t="${t}">${t}</button>`).join('');
+$('#papers-list').innerHTML = PAPERS.map((p, i) => `<article class="paper rv" data-t="${p.tag}" style="--c:${p.c}">
+ <span class="tag">${p.tag}</span><h3>${p.t}</h3><div class="meta">${p.v} · ${p.y} · Cited: ${p.cited}</div>
+ <button class="tog" aria-expanded="false" aria-controls="ab${i}">Abstract</button>
+ <div class="more" id="ab${i}"><div><p>${p.a} <a href="${p.url}">Read the paper</a></p></div></div></article>`).join('');
+$('#filters').addEventListener('click',e=>{const b=e.target.closest('.chip'); if(!b)return;
+  document.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  document.querySelectorAll('.paper').forEach(p=>p.classList.toggle('hide',b.dataset.t!=='All'&&p.dataset.t!==b.dataset.t));});
+$('#papers-list').addEventListener('click',e=>{const b=e.target.closest('.tog'); if(!b)return;
+  const art=b.closest('.paper'), o=art.classList.toggle('open'); b.setAttribute('aria-expanded',o);});
+
+/* repos */
+$('#repos').innerHTML=REPOS.map(r=>`<div class="repo tilt rv" style="--c:${r.c}"><h3>${r.n}</h3><p>${r.d}</p>
+ <div class="stack">${r.s.map(x=>`<span>${x}</span>`).join('')}</div>
+ <ol>${r.st.map(x=>`<li>${x}</li>`).join('')}</ol>
+ <p><a class="gh" href="${ME.github}/${r.n}">View on GitHub</a></p></div>`).join('');
+
+/* 3D tilt on repo cards */
+if(!reduce) document.querySelectorAll('.tilt').forEach(c=>{
+  c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+    c.style.transform=`rotateY(${x*10}deg) rotateX(${-y*10}deg) translateY(-4px)`;});
+  c.addEventListener('mouseleave',()=>c.style.transform='');});
+
+/* reveal + counters */
+const io=new IntersectionObserver(es=>es.forEach(e=>{ if(!e.isIntersecting)return; io.unobserve(e.target);
+  e.target.style.transitionDelay=(Math.min([...e.target.parentNode.children].indexOf(e.target),6)*90)+'ms'; e.target.classList.add('in');
+  const n=e.target.querySelector('[data-n]'); if(n){const to=+n.dataset.n; if(reduce){n.textContent=to;return}
+    let k=0; const t=setInterval(()=>{n.textContent=++k; if(k>=to)clearInterval(t)},280/Math.max(to,1)*2);} }),{threshold:.15});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+/* scroll progress */
+addEventListener('scroll',()=>{const h=document.documentElement; $('#bar').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'},{passive:true});
+
+/* hero: live network that reacts to the cursor */
+const cv=$('#net'),ctx=cv.getContext('2d'),cols=['#6D4AFF','#FF5D73','#00E0C0','#FFB020','#fff'];
+let W,H,nodes=[],mx=-999,my=-999;
+function size(){const d=devicePixelRatio||1;W=cv.clientWidth;H=cv.clientHeight;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);
+  nodes=Array.from({length:Math.round(Math.min(90,W*H/14000))},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5,r:2+Math.random()*4,c:cols[Math.random()*cols.length|0]}));}
+addEventListener('resize',size); size();
+cv.parentNode.addEventListener('mousemove',e=>{const r=cv.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top});
+cv.parentNode.addEventListener('mouseleave',()=>mx=my=-999);
+function frame(){ctx.clearRect(0,0,W,H);
+  for(const a of nodes){ if(!reduce){a.x+=a.vx;a.y+=a.vy; if(a.x<0||a.x>W)a.vx*=-1; if(a.y<0||a.y>H)a.vy*=-1;
+      const dx=a.x-mx,dy=a.y-my,d=Math.hypot(dx,dy); if(d<120){a.x+=dx/d*1.6;a.y+=dy/d*1.6}}}
+  for(let i=0;i<nodes.length;i++){const a=nodes[i];
+    for(let j=i+1;j<nodes.length;j++){const b=nodes[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+      if(d<140){ctx.strokeStyle=a.c;ctx.globalAlpha=(1-d/140)*.55;ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}}
+    const dm=Math.hypot(a.x-mx,a.y-my); if(dm<180){ctx.strokeStyle='#fff';ctx.globalAlpha=(1-dm/180)*.8;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(mx,my);ctx.stroke()}
+    ctx.globalAlpha=1;ctx.fillStyle=a.c;ctx.beginPath();ctx.arc(a.x,a.y,a.r,0,7);ctx.fill();}
+  if(!reduce)requestAnimationFrame(frame)}
+frame();
+</script>
+</body>
+</html>
